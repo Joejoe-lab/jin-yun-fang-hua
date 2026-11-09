@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="晋韵芳华 山西女性时代记忆数字展馆本地演示界面" />
+  <title>晋韵芳华｜山西女性时代记忆数字展馆</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#home" aria-label="返回序厅">
+      <span class="brand-mark"><span>晋</span></span>
+      <span><strong>晋韵芳华</strong><small>山西女性时代记忆数字展馆</small></span>
+    </a>
+    <nav aria-label="主导航">
+      <a href="#timeline">时代长廊</a>
+      <a href="#figures">巾帼人物</a>
+      <a href="#map">三晋足迹</a>
+    </nav>
+    <button class="sound" type="button" aria-label="开启展馆声音" aria-pressed="false">声音 OFF</button>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-copy reveal">
+        <p class="eyebrow">SHANXI WOMEN · DIGITAL EXHIBITION</p>
+        <h1><span>晋韵</span><span class="accent">芳华</span></h1>
+        <p class="subtitle">山西女性时代记忆数字展馆</p>
+        <p class="intro">从烽火岁月到建设热潮，再到非遗传承与乡村振兴，沿着三位山西女性的人生坐标，触摸跨越时代的信念、劳动与创造。</p>
+        <a class="enter" href="#timeline"><span>进入展馆</span><b>↓</b></a>
+      </div>
+      <div class="hero-symbol" aria-hidden="true">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div>
+        <div class="seal">晋<br><span>WOMEN</span></div>
+      </div>
+      <div class="hero-index"><span>EXHIBITION 01</span><span>2026 · SHANXI</span></div>
+    </section>
+
+    <section class="timeline section" id="timeline">
+      <div class="section-heading reveal">
+        <p class="eyebrow">01 · CHRONICLE</p>
+        <h2>时代长廊</h2>
+        <p>选择一个时代，展馆将同步切换人物、事件与叙事色彩。</p>
+      </div>
+      <div class="era-tabs" role="tablist" aria-label="历史时期">
+        <button class="era-tab active" role="tab" aria-selected="true" data-era="revolution"><b>01</b><span>革命时期</span><small>1930年代—1949</small></button>
+        <button class="era-tab" role="tab" aria-selected="false" data-era="construction"><b>02</b><span>社会主义革命和建设时期</span><small>1949—1978</small></button>
+        <button class="era-tab" role="tab" aria-selected="false" data-era="reform"><b>03</b><span>改革开放和新时代</span><small>1978—至今</small></button>
+      </div>
+      <article class="era-stage reveal" id="eraStage" aria-live="polite">
+        <button class="era-year-block" type="button" data-event="revolution" aria-label="查看革命时期代表事件"><span class="era-year" id="eraYear">代表事件</span><small id="eraYearNote">点击查看</small></button>
+        <div class="era-copy">
+          <p class="era-kicker" id="eraKicker">信仰与牺牲</p>
+          <h3 id="eraTitle">烽火中的青春选择</h3>
+          <p id="eraDescription">抗日战争与解放战争时期，山西妇女通过识字教育、生产劳动、救护和支前等方式进入公共行动。基层妇女组织成为连接家庭、乡村与革命动员的重要力量。</p>
+          <p class="era-milestone" id="eraMilestone">时代注脚：妇女救国组织、支前生产与基层动员不断发展。</p>
+          <button class="text-link" data-open="HLQ-01">本时期代表人物：刘胡兰 →</button>
+        </div>
+        <div class="era-visual has-era-image"><img id="eraVisual" src="assets/eras/revolution.jpg" alt="革命时期时代背景图"></div>
+      </article>
+    </section>
+
+    <section class="figures section" id="figures">
+      <div class="section-heading reveal">
+        <p class="eyebrow">02 · PORTRAITS</p>
+        <h2>巾帼人物馆</h2>
+        <p>三位人物，三种时代坐标，共同构成一条不断延伸的女性奋斗脉络。</p>
+      </div>
+      <div class="figure-grid" id="figureGrid"></div>
+    </section>
+
+    <section class="map-section section" id="map">
+      <div class="section-heading reveal">
+        <p class="eyebrow">03 · FOOTPRINTS</p>
+        <h2>三晋女性足迹</h2>
+        <p>点击地图坐标，查看人物与山西地域之间的真实联系。</p>
+      </div>
+      <div class="map-layout reveal">
+        <div class="map-canvas" aria-label="可缩放的中国卫星遥感地图">
+          <div id="chinaMap" role="application" aria-label="中国卫星遥感交互地图，可拖动和缩放"></div>
+          <div class="map-credit" aria-label="地图来源">Leaflet｜影像 © Esri, Maxar, Earthstar Geographics, GIS User Community</div>
+        </div>
+        <div class="map-copy">
+          <p class="map-number">03 / 11</p>
+          <h3>从吕梁到太行</h3>
+          <p>地图记录人物活动地与纪念、实践场所，呈现女性行动如何嵌入吕梁与太行之间的真实空间。</p>
+          <div class="map-legend"><span><i class="legend-person"></i>人物活动地</span><span><i class="legend-place"></i>纪念／实践场所</span></div>
+          <p class="spatial-route">空间脉络：吕梁文水的革命记忆 → 太行平顺的劳动与制度实践 → 晋中和顺的非遗传承。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="archive-notes section" id="archiveNotes">
+      <div class="section-heading reveal">
+        <p class="eyebrow">04 · REFERENCE</p>
+        <h2>名词与文献角</h2>
+      </div>
+      <div class="glossary-grid reveal">
+        <article><span>01</span><h3>男女同工同酬</h3><p>在相同劳动条件与劳动成果下，劳动报酬不因性别而区别对待。申纪兰相关史料见人物档案来源。</p></article>
+        <article><span>02</span><h3>省级非遗扩展项目</h3><p>在既有省级非物质文化遗产名录基础上补充认定的代表性项目，强调保护、传承与传播。</p></article>
+        <article><span>03</span><h3>全国人大制度</h3><p>全国人民代表大会是最高国家权力机关。人物档案中的代表经历按公开生平资料标注。</p></article>
+      </div>
+      <div class="reference-index reveal"><h3>史料来源索引</h3><a href="https://www.12371.cn/special/zgjs/lhljs/" target="_blank" rel="noreferrer">共产党员网｜刘胡兰精神与事迹介绍</a><a href="https://cpc.people.com.cn/GB/n1/2020/0629/c87393-31762623.html" target="_blank" rel="noreferrer">人民网·中国共产党新闻网｜申纪兰同志生平</a><a href="https://www.chinanews.com.cn/m/cul/2017/12-22/8407036.shtml" target="_blank" rel="noreferrer">中国新闻网｜山西和顺牵绣传承人范素萍</a><small>访问日期：2026-11-05。图片仍需在正式使用前逐项核实授权。</small></div>
+    </section>
+  </main>
+
+  <footer><span>晋韵芳华 · UI DEMO</span><span>史料来源已标注 · 图片版权待核实</span></footer>
+
+  <dialog id="personDialog" aria-labelledby="dialogName">
+    <button class="dialog-close" aria-label="关闭人物详情">×</button>
+    <div class="dialog-image has-portrait"><img id="dialogPortrait" src="" alt=""></div>
+    <div class="dialog-content">
+      <p class="dialog-era" id="dialogEra"></p><h2 id="dialogName"></h2>
+      <div class="dialog-meta"><span id="dialogLife"></span><span id="dialogPlace"></span><span id="dialogCoords"></span></div>
+      <p id="dialogStory"></p>
+      <h3>代表贡献</h3><ul id="dialogContributions"></ul>
+      <button class="map-jump" id="dialogMapLink" type="button" data-map-person="">在地图中查看坐标 →</button>
+      <div class="source-note"><b>资料来源</b><a id="dialogSource" href="" target="_blank" rel="noreferrer"></a><span id="dialogAccessed"></span><small>正式使用图片前须另行核实并取得授权。</small></div>
+    </div>
+  </dialog>
+  <dialog id="eventDialog" class="event-dialog" aria-labelledby="eventTitle">
+    <button class="dialog-close event-close" aria-label="关闭事件详情">×</button>
+    <div class="event-content">
+      <p class="eyebrow">REPRESENTATIVE EVENT · 代表事件</p>
+      <h2 id="eventTitle"></h2>
+      <div class="dialog-meta"><span id="eventPeriod"></span></div>
+      <div class="event-list" id="eventList"></div>
+    </div>
+  </dialog>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="app.js"></script>
+</body>
+</html>
