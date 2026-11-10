@@ -192,3 +192,20 @@ const museumAudio=new MuseumAudio();
 const soundButton=document.querySelector('.sound');
 soundButton.addEventListener('click',async()=>{const isOn=await museumAudio.toggle();soundButton.textContent=isOn?'声音 ON':'声音 OFF';soundButton.classList.toggle('is-on',isOn);soundButton.setAttribute('aria-pressed',String(isOn));soundButton.setAttribute('aria-label',isOn?'关闭展馆声音':'开启展馆声音')});
 document.addEventListener('click',event=>{if(event.target.closest('.sound'))return;const era=event.target.closest('.era-tab');if(era){museumAudio.play('tab');museumAudio.setEra(era.dataset.era);return}if(event.target.closest('[data-open],[data-event]'))museumAudio.play('open');if(event.target.closest('.dialog-close'))museumAudio.play('close')},{capture:true});
+
+// 选取原视频中画面最稳定的 1.5—8.5 秒作为序厅循环段。
+const heroFlagVideo=document.getElementById('heroFlagVideo');
+if(heroFlagVideo){
+  const loopStart=1.5;
+  const loopEnd=8.5;
+  heroFlagVideo.addEventListener('loadedmetadata',()=>{
+    heroFlagVideo.currentTime=loopStart;
+    heroFlagVideo.play().catch(()=>{});
+  });
+  heroFlagVideo.addEventListener('timeupdate',()=>{
+    if(heroFlagVideo.currentTime>=loopEnd){
+      heroFlagVideo.currentTime=loopStart;
+      heroFlagVideo.play().catch(()=>{});
+    }
+  });
+}
